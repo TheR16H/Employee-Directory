@@ -1,9 +1,8 @@
-CREATE DATABASE rashawn_db;
+CREATE DATABASE employeedirectory_db;
 
-\c rashawn_db;
+\c employeedirectory_db;
 
 CREATE TABLE department (
-
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) UNIQUE NOT NULL
 );
