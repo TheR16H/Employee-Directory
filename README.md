@@ -33,7 +33,7 @@ For any support find me on [Github!](https://github.com/TheR16H)
 N/A
 
 ## Acknowledgments
-
+[Reference](https://coding-boot-camp.github.io/full-stack/postgresql/postgresql-reference-guide)
 ## License
 <!-- MIT License
 
