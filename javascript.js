@@ -1,0 +1,1 @@
+// npm i questions for each person to insert into the table
