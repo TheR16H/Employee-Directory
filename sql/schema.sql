@@ -7,30 +7,19 @@ CREATE TABLE department (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) UNIQUE NOT NULL
 );
-* `department`
-
-  * `id`: `SERIAL PRIMARY KEY`
-
-  * `name`: `VARCHAR(30) UNIQUE NOT NULL` to hold department name
+-- name: to hold department name
 
 -- -- -- -- -- -- -- -- -- --
 
 CREATE TABLE role (
 id SERIAL PRIMARY KEY
-title --same as name
+title VARCHAR(30) UNIQUE NOT NULL
 salary DECIAML NOT NULL
 );
-* `role`
+-- title: to hold role title
+-- salary:to hold role salary
+-- department_id - to hold reference to department role belongs to
 
-  * `id`: `SERIAL PRIMARY KEY`
-
-  * `title`: `VARCHAR(30) UNIQUE NOT NULL` to hold role title
-
-  * `salary`: `DECIMAL NOT NULL` to hold role salary
-
-  * `department_id`: `INTEGER NOT NULL` to hold reference to department role belongs to
-
-*
 
 -- -- -- -- -- -- -- -- -- --
 
