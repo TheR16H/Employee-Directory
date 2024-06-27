@@ -7,9 +7,6 @@
  add it to the README of your project.
  ```
 
-## User Story
-
-
 ## Acceptance Criteria
 
 ```md

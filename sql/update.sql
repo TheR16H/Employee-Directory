@@ -6,6 +6,6 @@ UPDATE role
 SET name = 'placeholder'
 WHERE id = ##;
 
-UPDATE employee
+UPDATE employee --Update employee managers.--
 SET name = 'placeholder'
 WHERE id = ##;
