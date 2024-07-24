@@ -47,3 +47,12 @@ function handleUserChoice(choice) {
         executeQuery(sql);
     }
 }
+function executeQuery(sql) {
+    pool.query(sql, (err, { rows }) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.table(rows);
+        }
+    });
+}
