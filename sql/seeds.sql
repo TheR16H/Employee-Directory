@@ -1,5 +1,3 @@
--- some pre-establish date will go here to round out
--- each table
 
 INSERT INTO department (name) 
 VALUES  ('Marketing'),

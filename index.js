@@ -56,3 +56,19 @@ function executeQuery(sql) {
         }
     });
 }
+
+function init() {
+    inquirer.prompt(questions).then(({ choice }) => {
+        console.log(choice);
+        handleUserChoice(choice);
+    }).catch(error => {
+        if (error.isTtyError) {
+            console.log('Prompt couldn\'t be rendered in the current environment');
+        } else {
+            console.log('Something went wrong');
+        }
+    });
+}
+
+console.log(artBanner());
+init();
