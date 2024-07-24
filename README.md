@@ -2,7 +2,7 @@
 
 ## Description 
 
- <!-- [name](link to deployed site)  -->
+ <!-- [name](link to REPO no deploy)  -->
 
 ## Table of Contents
 
@@ -11,12 +11,12 @@
 - [Installation](#installation)
 - [Support](#support)
 - [Contributions](#contributions)
-- [Acknowledgments](#Acknowledgments)
+- [References](references)
 - [License](#license)
 
 ## Visuals
 <!-- ![ScreenShot1]() 
- ![Video]() -->
+ ![gif]() -->
 
 ## Usage
 
@@ -27,12 +27,12 @@ npm i
 ``` -->
 
 ## Support
-For any support find me on [Github!](https://github.com/TheR16H)
+Find me on [Github](https://github.com/TheR16H) for any support or to see any of my other works!
 
 ## Contributions
 no contributions will be accepted on this project.
 
-## Acknowledgments
+## References
 - [Postgresql guide](https://coding-boot-camp.github.io/full-stack/postgresql/postgresql-reference-guide)
 
 ## License
