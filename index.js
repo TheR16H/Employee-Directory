@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const express = require('express');
 const { Pool } = require('pg');
-const { getNewEmployee, getNewRole, getNewDepartment, updateEmployee } = require('./sql');
+const { getNewEmployee, newRole, newDepartment, updateEmployee } = require('./sql');
 
 const app = express();
 const pool = new Pool({ user: 'postgres', password: 'micha', host: 'localhost', database: 'employee' });
