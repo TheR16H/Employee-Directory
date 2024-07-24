@@ -30,10 +30,11 @@ npm i
 For any support find me on [Github!](https://github.com/TheR16H)
 
 ## Contributions
-
+no contributions will be accepted on this project.
 
 ## Acknowledgments
-[Reference](https://coding-boot-camp.github.io/full-stack/postgresql/postgresql-reference-guide)
+- [Postgresql guide](https://coding-boot-camp.github.io/full-stack/postgresql/postgresql-reference-guide)
+
 ## License
 MIT License
 
