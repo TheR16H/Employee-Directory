@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const { Client } = require('pg');
+require('dotenv').config();
 
 
 // In-memory data storage
@@ -29,7 +30,6 @@ client.connect()
     })
     .catch(err => console.error('Error connecting to the database:', err));
 
-
 function handleUserChoice(choice) {
     switch (choice) {
         case 'View All Employees':
@@ -39,6 +39,7 @@ function handleUserChoice(choice) {
             getNewEmployee().then(employee => {
                 employees.push(employee);
                 console.log('Employee added successfully.');
+                init(); // Prompt for the next action
             });
             break;
         case 'Update Employee Role':
@@ -46,24 +47,32 @@ function handleUserChoice(choice) {
             break;
         case 'View all Roles':
             console.table(roles);
+            init(); // Prompt for the next action
             break;
         case 'Add Role':
             getNewRole().then(role => {
                 roles.push(role);
                 console.log('Role added successfully.');
+                init(); // Prompt for the next action
             });
             break;
         case 'View All Departments':
             console.table(departments);
+            init(); // Prompt for the next action
             break;
         case 'Add Department':
             getNewDepartment().then(department => {
                 departments.push(department);
                 console.log('Department added successfully.');
+                init(); // Prompt for the next action
             });
             break;
-        default:
+        case 'Quit':
             process.exit();
+            break;
+        default:
+            console.log('Invalid choice. Please select a valid option.');
+            init(); // Prompt for the next action
     }
 }
 
@@ -122,7 +131,6 @@ function init() {
     inquirer.prompt(questions).then(({ choice }) => {
         console.log('Selected choice:', choice);
         handleUserChoice(choice);
-        init(); // Recursive call to keep the program running
     }).catch(error => {
         if (error.isTtyError) {
             console.error('Prompt couldn\'t be rendered in the current environment');
@@ -131,4 +139,4 @@ function init() {
         }
     });
 }
-init();
+// init();
