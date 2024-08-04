@@ -1,20 +1,21 @@
 const inquirer = require('inquirer');
 const express = require('express');
 const getNewEmployee = require('./sqlQueries/getNewEmployee.js');
-const NewRole = require('./sqlQueries/newRole.js');
-const newDepartment = require('./sqlQueries/newDepartment.js');
+const getNewRole = require('./sqlQueries/newRole.js');
+const getNewDepartment = require('./sqlQueries/newDepartment.js');
 const updateEmployee = require('./sqlQueries/updateEmployee.js');
+
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const questions = [{ 
-    type: 'list', 
-    message: 'What would you like to do?', 
-    name: 'choice', 
-    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'] }];
-
+const questions = [{
+    type: 'list',
+    message: 'What would you like to do?',
+    name: 'choice',
+    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+}];
 
 function handleUserChoice(choice) {
     let sql = '';
@@ -71,5 +72,5 @@ function init() {
     });
 }
 
-console.log(artBanner()); 
+console.log(artBanner());
 init();
