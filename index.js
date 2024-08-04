@@ -1,14 +1,11 @@
 const inquirer = require('inquirer');
 const express = require('express');
-const { Pool } = require('pg');
 const getNewEmployee = require('./sqlQueries/getNewEmployee.js');
 const NewRole = require('./sqlQueries/newRole.js');
 const newDepartment = require('./sqlQueries/newDepartment.js');
 const updateEmployee = require('./sqlQueries/updateEmployee.js');
 
 const app = express();
-const pool = new Pool({ user: 'postgres', password: 'micha', host: 'localhost', database: 'employee' });
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -18,7 +15,6 @@ const questions = [{
     name: 'choice', 
     choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'] }];
 
-pool.connect();
 
 function handleUserChoice(choice) {
     let sql = '';
