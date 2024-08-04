@@ -1,36 +1,11 @@
 const inquirer = require('inquirer');
-const express = require('express');
-const getNewEmployee = require('./sqlQueries/getNewEmployee.js');
-const getNewRole = require('./sqlQueries/newRole.js');
-const getNewDepartment = require('./sqlQueries/newDepartment.js');
-const updateEmployee = require('./sqlQueries/updateEmployee.js');
-require('dotenv').config();
-const mysql = require('mysql');
+const { Client } = require('pg');
 
-const app = express();
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
-// new
-const pool = mysql.createPool({
-    connectionLimit: 100,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-
-function executeQuery(sql) {
-    pool.query(sql, (err, rows) => {
-        if (err) {
-            console.error('Error executing query:', err);
-        } else {
-            console.table(rows);
-        }
-    });
-}
-
-// new
+// In-memory data storage
+let employees = [];
+let roles = [];
+let departments = [];
 
 const questions = [{
     type: 'list',
@@ -39,52 +14,106 @@ const questions = [{
     choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
 }];
 
+const client = new Client({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+});
+
+client.connect()
+    .then(() => {
+        console.log('Connected to the database');
+        init(); // Start the application after connecting to the database
+    })
+    .catch(err => console.error('Error connecting to the database:', err));
+
+
 function handleUserChoice(choice) {
-    let sql = '';
     switch (choice) {
         case 'View All Employees':
-            sql = `SELECT e.id, e.first_name, e.last_name, r.department, r.salary, e.manager_id, d.name FROM employee e LEFT JOIN role r ON e.role_id = r.id LEFT JOIN department d ON r.department = d.id`;
+            console.table(employees);
             break;
         case 'Add Employee':
-            getNewEmployee().then(query => executeQuery(query));
+            getNewEmployee().then(employee => {
+                employees.push(employee);
+                console.log('Employee added successfully.');
+            });
             break;
         case 'Update Employee Role':
-            updateEmployee().then(query => executeQuery(query));
+            // Implement update employee role functionality
             break;
         case 'View all Roles':
-            sql = 'SELECT * FROM role';
+            console.table(roles);
             break;
         case 'Add Role':
-            getNewRole().then(query => executeQuery(query));
+            getNewRole().then(role => {
+                roles.push(role);
+                console.log('Role added successfully.');
+            });
             break;
         case 'View All Departments':
-            sql = 'SELECT * FROM department';
+            console.table(departments);
             break;
         case 'Add Department':
-            getNewDepartment().then(query => executeQuery(query));
+            getNewDepartment().then(department => {
+                departments.push(department);
+                console.log('Department added successfully.');
+            });
             break;
         default:
             process.exit();
     }
-    if (sql) {
-        executeQuery(sql);
-    }
 }
 
-function executeQuery(sql) {
-    pool.query(sql, (err, { rows }) => {
-        if (err) {
-            console.error('Error executing query:', err);
-        } else {
-            console.table(rows);
-        }
-    });
+function getNewEmployee() {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Enter the employee first name:',
+            name: 'firstName'
+        },
+        {
+            type: 'input',
+            message: 'Enter the employee last name:',
+            name: 'lastName'
+        },
+        // barebones set up dont forget to add the rest
+    ]);
 }
 
+function getNewRole() {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Enter the role title:',
+            name: 'title'
+        },
+        {
+            type: 'input',
+            message: 'Enter the role salary:',
+            name: 'salary'
+        },
+        // barebones set up dont forget to add the rest
+    ]);
+}
+
+function getNewDepartment() {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Enter the department name:',
+            name: 'name'
+        },
+        // barebones set up dont forget to add the rest
+    ]);
+}
 function init() {
     inquirer.prompt(questions).then(({ choice }) => {
         console.log('Selected choice:', choice);
         handleUserChoice(choice);
+        init(); // Recursive call to keep the program running
     }).catch(error => {
         if (error.isTtyError) {
             console.error('Prompt couldn\'t be rendered in the current environment');
@@ -93,5 +122,4 @@ function init() {
         }
     });
 }
-
 init();
