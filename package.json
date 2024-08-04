@@ -1,7 +1,7 @@
 {
   "name": "nonhuman-resources",
   "version": "1.0.0",
-  "description": "",
+  "description": "<!-- [name]() \r  link to REPO no deploy -->",
   "main": "index.js",
   "devDependencies": {
     "inquirer": "^8.2.4",
