@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const express = require('express');
 const { Pool } = require('pg');
-const { getNewEmployee, newRole, newDepartment, updateEmployee } = require('./sql');
+const { getNewEmployee, newRole, newDepartment, updateEmployee } = require('./sqlQueries');
 
 const app = express();
 const pool = new Pool({ user: 'postgres', password: 'micha', host: 'localhost', database: 'employee' });
@@ -16,6 +16,7 @@ const questions = [{
     choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'] }];
 
 pool.connect();
+
 function handleUserChoice(choice) {
     let sql = '';
     switch (choice) {
@@ -23,22 +24,22 @@ function handleUserChoice(choice) {
             sql = `SELECT e.id, e.first_name, e.last_name, r.department, r.salary, e.manager_id, d.name FROM employee e LEFT JOIN role r ON e.role_id = r.id LEFT JOIN department d ON r.department = d.id`;
             break;
         case 'Add Employee':
-            getNewEmployee().then(sql => executeQuery(sql));
+            getNewEmployee().then(query => executeQuery(query));
             break;
         case 'Update Employee Role':
-            updateEmployee().then(sql => executeQuery(sql));
+            updateEmployee().then(query => executeQuery(query));
             break;
         case 'View all Roles':
             sql = 'SELECT * FROM role';
             break;
         case 'Add Role':
-            getNewRole().then(sql => executeQuery(sql));
+            getNewRole().then(query => executeQuery(query));
             break;
         case 'View All Departments':
             sql = 'SELECT * FROM department';
             break;
         case 'Add Department':
-            getNewDepartment().then(sql => executeQuery(sql));
+            getNewDepartment().then(query => executeQuery(query));
             break;
         default:
             process.exit();
@@ -47,10 +48,11 @@ function handleUserChoice(choice) {
         executeQuery(sql);
     }
 }
+
 function executeQuery(sql) {
     pool.query(sql, (err, { rows }) => {
         if (err) {
-            console.log(err);
+            console.error('Error executing query:', err);
         } else {
             console.table(rows);
         }
@@ -59,16 +61,16 @@ function executeQuery(sql) {
 
 function init() {
     inquirer.prompt(questions).then(({ choice }) => {
-        console.log(choice);
+        console.log('Selected choice:', choice);
         handleUserChoice(choice);
     }).catch(error => {
         if (error.isTtyError) {
-            console.log('Prompt couldn\'t be rendered in the current environment');
+            console.error('Prompt couldn\'t be rendered in the current environment');
         } else {
-            console.log('Something went wrong');
+            console.error('Something went wrong:', error);
         }
     });
 }
 
-console.log(artBanner());
+console.log(artBanner()); 
 init();
