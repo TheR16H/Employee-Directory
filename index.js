@@ -79,7 +79,14 @@ function getNewEmployee() {
             message: 'Enter the employee last name:',
             name: 'lastName'
         },
-        // barebones set up dont forget to add the rest
+        {   type: 'input',
+            message: 'Enter the department id:',
+            name: 'role_id'
+        },
+        {   type: 'input',
+            message: 'Enter the Manger ID (If NULL Leave blank):',
+            name: 'manager_id'
+        }
     ]);
 }
 
@@ -95,7 +102,10 @@ function getNewRole() {
             message: 'Enter the role salary:',
             name: 'salary'
         },
-        // barebones set up dont forget to add the rest
+       {   type: 'input',
+            message: 'Enter the department id:',
+            name: 'department_id'
+        }
     ]);
 }
 
@@ -105,8 +115,7 @@ function getNewDepartment() {
             type: 'input',
             message: 'Enter the department name:',
             name: 'name'
-        },
-        // barebones set up dont forget to add the rest
+        }
     ]);
 }
 function init() {
