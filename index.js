@@ -4,11 +4,33 @@ const getNewEmployee = require('./sqlQueries/getNewEmployee.js');
 const getNewRole = require('./sqlQueries/newRole.js');
 const getNewDepartment = require('./sqlQueries/newDepartment.js');
 const updateEmployee = require('./sqlQueries/updateEmployee.js');
-
+require('dotenv').config();
+const mysql = require('mysql');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// new
+const pool = mysql.createPool({
+    connectionLimit: 100,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+function executeQuery(sql) {
+    pool.query(sql, (err, rows) => {
+        if (err) {
+            console.error('Error executing query:', err);
+        } else {
+            console.table(rows);
+        }
+    });
+}
+
+// new
 
 const questions = [{
     type: 'list',
@@ -72,5 +94,4 @@ function init() {
     });
 }
 
-console.log(artBanner());
 init();
