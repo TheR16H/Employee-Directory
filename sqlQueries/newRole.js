@@ -9,3 +9,5 @@
 // INSERT INTO employee (id, name)
 // VALUES 
 // ();
+
+module.exports = newRole;
