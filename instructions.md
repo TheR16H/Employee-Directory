@@ -41,8 +41,6 @@ This Challenge will require a video submission. Refer to the [Fullstack Blog Vid
 
 You’ll need to use the [pg package](https://www.npmjs.com/package/pg) to connect to your PostgreSQL database and perform queries, and the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4) to interact with the user via the command line.
 
-**Important**: You will be committing a file that contains your database credentials. Make sure that your PostgreSQL password is not used for any other personal accounts, because it will be visible on GitHub. In upcoming lessons, you will learn how to better secure this password, or you can start researching npm packages now that could help you.
-
 You might also want to make your queries asynchronous. You can make your queries asynchronous by using the [native async/await keywords](https://node-postgres.com/guides/async-express).
 
 Design the database schema as shown in the following image:

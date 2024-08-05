@@ -30,9 +30,7 @@ npm i
 Secondly, you need to run the following command to get the seeded data if its desired. 
 ```
 npm run seed
-```
-And finally 
- -->
+``` -->
 
 ## Support
 Find me on [Github](https://github.com/TheR16H) for any support or to see any of my other works!
@@ -42,6 +40,9 @@ no contributions will be accepted on this project.
 
 ## References
 - [Postgresql guide](https://coding-boot-camp.github.io/full-stack/postgresql/postgresql-reference-guide)
+- [Async notes](https://node-postgres.com/guides/async-express)
+- [pg npm](https://www.npmjs.com/package/pg)
+- [Inqurier npm](https://www.npmjs.com/package/inquirer/v/8.2.4)
 
 ## License
 MIT License
