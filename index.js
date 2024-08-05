@@ -191,7 +191,11 @@ function handleUserChoice(choice) {
                 });
             });
             break;
-        // Add cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
+            case 'Quit':
+            console.log('Exiting the application. Goodbye!');
+            
+            break;
+        // dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
         default:
             console.log('Invalid choice. Please select a valid option.');
             init(); // Prompt for the next action

@@ -23,10 +23,16 @@
 ## Usage
 
 ## Installation
-<!-- just simply run the following command to install Inquirer and you're all set! 
+<!-- First to install the application run the following command in your terminal to install the needed npm packages. 
 ```
-npm i
-``` -->
+npm i 
+```
+Secondly, you need to run the following command to get the seeded data if its desired. 
+```
+npm run seed
+```
+And finally 
+ -->
 
 ## Support
 Find me on [Github](https://github.com/TheR16H) for any support or to see any of my other works!
