@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "seed": "psql -U postgres -d employeedirectory_db -a -f sql/seeds.sql"
+    "seed": "node sql/dbseeds.js"
 
   },
   "keywords": [],
