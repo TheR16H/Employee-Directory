@@ -8,7 +8,10 @@
     "pg": "^8.12.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "seed": "psql -U postgres -d employeedirectory_db -a -f sql/seeds.sql"
+
   },
   "keywords": [],
   "author": "",
