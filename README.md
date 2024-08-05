@@ -2,8 +2,8 @@
 
 ## Description 
 
- <!-- [name]() 
- link to REPO no deploy -->
+ <!-- [name](https://github.com/TheR16H/Employee-Directory) 
+ no deploy -->
 
 ## Table of Contents
 
@@ -17,7 +17,8 @@
 
 ## Visuals
 <!-- ![ScreenShot1]() 
- ![gif]() -->
+ ![gif]() 
+ >>>> [DEMO VIDEO](drive.google.link) <<<<  -->
 
 ## Usage
 
