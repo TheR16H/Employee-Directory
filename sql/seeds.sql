@@ -51,6 +51,7 @@ BEGIN
 END;
 
 -- employee seeds
+CREATE PROCEDURE SeedEmployees()
 AS
 BEGIN
     INSERT INTO employees (first_name, last_name, role_id, manager_id) 

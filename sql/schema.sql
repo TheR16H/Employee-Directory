@@ -25,3 +25,5 @@ CREATE TABLE employees (
     manager_id INT,
     FOREIGN KEY (role_id) REFERENCES role(id)
 );
+SELECT*FROM employees;
+SELECT * FROM employees;
