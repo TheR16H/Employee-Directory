@@ -75,6 +75,56 @@ function viewEmployeesByDepartment() {
     });
 }
 
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the name of the department:'
+        }
+    ]).then(answer => {
+        const { name } = answer;
+        pool.query('INSERT INTO department (name) VALUES ($1)', [name], (err) => {
+            if (err) {
+                console.error('Error adding department:', err);
+                return;
+            }
+            console.log('Department added successfully.');
+            init();
+        });
+    });
+}
+
+function addRole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Enter the title of the role:'
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Enter the salary of the role:'
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'Enter the department ID for the role:'
+        }
+    ]).then(answer => {
+        const { title, salary, department_id } = answer;
+        pool.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [title, salary, department_id], (err) => {
+            if (err) {
+                console.error('Error adding role:', err);
+                return;
+            }
+            console.log('Role added successfully.');
+            init();
+        });
+    });
+}
+
 function handleUserChoice(choice) {
     switch (choice) {
         case 'View All Employees':
@@ -107,6 +157,12 @@ function handleUserChoice(choice) {
                 init();
             });
             break;
+           case 'Add Department':
+    addDepartment();
+    break;
+case 'Add Role':
+    addRole();
+    break;
         case 'Add Employee':
             getNewEmployee().then(employee => {
                 pool.query('INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [employee.firstName, employee.lastName, employee.role_id, employee.manager_id], (err) => {
