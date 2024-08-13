@@ -6,7 +6,7 @@ const questions = [{
     type: 'list',
     message: 'What would you like to do?',
     name: 'choice',
-    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Delete Employee','Delete Role','Delete Department','Quit']
+    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Delete Employee', 'Delete Role', 'Delete Department', 'View Employees by Department', 'Quit']
 }];
 
 const pool = new Pool({
@@ -20,32 +20,60 @@ const pool = new Pool({
 pool.connect()
     .then(() => {
         console.log('Connected to the database');
-        init(); // Start the application after connecting to the database
+        init();
     })
     .catch(err => console.error('Error connecting to the database:', err));
 
 
-    function promptForID(entity) {
-        return inquirer.prompt([
+function promptForID(entity) {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'id',
+            message: `Enter the ID of the ${entity} you want to delete:`,
+        }
+    ]).then(answer => {
+        return answer.id;
+    });
+}
+function deleteEmployee(employeeID) {
+    pool.query('DELETE FROM employees WHERE id = $1', [employeeID], (err) => {
+        if (err) {
+            console.error('Error deleting employee:', err);
+            return;
+        }
+        console.log('Employee deleted successfully.');
+        init();
+    });
+}
+function viewEmployeesByDepartment() {
+    pool.query('SELECT DISTINCT name FROM department', (err, result) => {
+        if (err) {
+            console.error('Error fetching departments:', err);
+            return;
+        }
+        
+        const departments = result.rows.map(row => row.name);
+        
+        inquirer.prompt([
             {
-                type: 'input',
-                name: 'id',
-                message: `Enter the ID of the ${entity} you want to delete:`,
+                type: 'list',
+                name: 'department',
+                message: 'Select a department to view employees:',
+                choices: departments
             }
-        ]).then(answer => {
-            return answer.id;
+        ]).then(({ department }) => {
+            pool.query('SELECT employees.first_name, employees.last_name, role.title, department.name AS department FROM employees INNER JOIN role ON employees.role_id = role.id INNER JOIN department ON role.department_id = department.id WHERE department.name = $1', [department], (err, result) => {
+                if (err) {
+                    console.error('Error fetching employees by department:', err);
+                    return;
+                }
+                console.table(result.rows);
+                init();  // Return to the main menu after displaying employees by department
+            });
         });
-    }
-    function deleteEmployee(employeeID) {
-        pool.query('DELETE FROM employees WHERE id = $1', [employeeID], (err) => {
-            if (err) {
-                console.error('Error deleting employee:', err);
-                return;
-            }
-            console.log('Employee deleted successfully.');
-            init();  
-        });
-    }
+    });
+}
 
 function handleUserChoice(choice) {
     switch (choice) {
@@ -56,29 +84,29 @@ function handleUserChoice(choice) {
                     return;
                 }
                 console.table(result.rows);
-                init(); // Prompt for the next action
+                init();
             });
             break;
-            case 'View all Roles':
-                pool.query('SELECT * FROM role', (err, result) => {
-                    if (err) {
-                        console.error('Error fetching roles:', err);
-                        return;
-                    }
-                    console.table(result.rows);
-                    init(); // Prompt for the next action
-                });
-                break;
-                case 'View All Departments':
-                    pool.query('SELECT * FROM department', (err, result) => {
-                        if (err) {
-                            console.error('Error fetching departments:', err);
-                            return;
-                        }
-                        console.table(result.rows);
-                        init(); // Prompt for the next action
-                    });
-                    break;
+        case 'View all Roles':
+            pool.query('SELECT * FROM role', (err, result) => {
+                if (err) {
+                    console.error('Error fetching roles:', err);
+                    return;
+                }
+                console.table(result.rows);
+                init();
+            });
+            break;
+        case 'View All Departments':
+            pool.query('SELECT * FROM department', (err, result) => {
+                if (err) {
+                    console.error('Error fetching departments:', err);
+                    return;
+                }
+                console.table(result.rows);
+                init();
+            });
+            break;
         case 'Add Employee':
             getNewEmployee().then(employee => {
                 pool.query('INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [employee.firstName, employee.lastName, employee.role_id, employee.manager_id], (err) => {
@@ -87,39 +115,30 @@ function handleUserChoice(choice) {
                         return;
                     }
                     console.log('Employee added successfully.');
-                    init(); // Prompt for the next action
+                    init();
                 });
             });
             break;
-            case 'Quit':
+        case 'Quit':
             console.log('Exiting the application. Goodbye!');
-            
+
             break;
-            case 'Delete Employee':
-                promptForID('employee').then(employeeID => {
-                    deleteEmployee(employeeID);
-                });
-                break;
-        //         case 'Delete Role':
-        //             promptForID('role').then(roleID => {
-        //                 deleteRole(roleID);
-        //             });
-        //             break;
-                
-        //         case 'Delete Department':
-        //             promptForID('department').then(departmentID => {
-        //                 deleteDepartment(departmentID);
-        //             });
-        //             break;
-        // case 'Quit':
+        case 'View Employees by Department':
+            viewEmployeesByDepartment();
+            break;
+        case 'Delete Employee':
+            promptForID('employee').then(employeeID => {
+                deleteEmployee(employeeID);
+            });
+            break;
             console.log('Exiting the application. Goodbye!');
             break;
         default:
             console.log('Invalid choice. Please select a valid option.');
-            init(); // Prompt for the next action
+            init();
     }
 }
-        // dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
+// dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
 
 function getNewEmployee() {
     return inquirer.prompt([
