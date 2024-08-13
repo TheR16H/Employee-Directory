@@ -17,9 +17,10 @@ This is an __<u>[Employee Directory](https://github.com/TheR16H/Employee-Directo
 - [License](#license)
 
 ## Visuals
-<!-- ![ScreenShot1]() 
- ![gif]() 
- >>>> [DEMO VIDEO](drive.google.link) <<<<  -->
+ ![ScreenShot1](./Assets/Visual%201.png) 
+ 
+ ![SS2](./Assets/Visual%202.png) 
+ <!-- >>>> [DEMO VIDEO](drive.google.link) <<<<  --> 
 
 ## Usage
 The proper usage of this application it to keep track of where everyone is in your business and who they belong too in the hierachy. you can even delete an employee if they get terminated.
