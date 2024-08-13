@@ -1,9 +1,10 @@
 # Employee Directory
 
 ## Description 
-
- <!-- [name](https://github.com/TheR16H/Employee-Directory) 
- no deploy -->
+This is an __<u>[Employee Directory](https://github.com/TheR16H/Employee-Directory)__</u>. with this application you will be able to 
+- see your employees / add or create new ones
+- see who is in what department 
+- and what role they play in the grand scheme.
 
 ## Table of Contents
 
@@ -21,16 +22,17 @@
  >>>> [DEMO VIDEO](drive.google.link) <<<<  -->
 
 ## Usage
+The proper usage of this application it to keep track of where everyone is in your business and who they belong too in the hierachy. you can even delete an employee if they get terminated.
 
 ## Installation
-<!-- First to install the application run the following command in your terminal to install the needed npm packages. 
+First to install the application run the following command in your terminal to install the needed npm packages. 
 ```
 npm i 
 ```
 Secondly, you need to run the following command to get the seeded data if its desired. 
 ```
 npm run seed
-``` -->
+```
 
 ## Support
 Find me on [Github](https://github.com/TheR16H) for any support or to see any of my other works!
