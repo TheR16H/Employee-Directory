@@ -167,6 +167,29 @@ pool.connect()
     })
     .catch(err => console.error('Error connecting to the database:', err));
 
+
+    function promptForID(entity) {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'id',
+                message: `Enter the ID of the ${entity} you want to delete:`,
+            }
+        ]).then(answer => {
+            return answer.id;
+        });
+    }
+    function deleteEmployee(employeeID) {
+        pool.query('DELETE FROM employees WHERE id = $1', [employeeID], (err) => {
+            if (err) {
+                console.error('Error deleting employee:', err);
+                return;
+            }
+            console.log('Employee deleted successfully.');
+            init();  
+        });
+    }
+
 function handleUserChoice(choice) {
     switch (choice) {
         case 'View All Employees':
@@ -179,6 +202,26 @@ function handleUserChoice(choice) {
                 init(); // Prompt for the next action
             });
             break;
+            case 'View all Roles':
+                pool.query('SELECT * FROM role', (err, result) => {
+                    if (err) {
+                        console.error('Error fetching roles:', err);
+                        return;
+                    }
+                    console.table(result.rows);
+                    init(); // Prompt for the next action
+                });
+                break;
+                case 'View All Departments':
+                    pool.query('SELECT * FROM department', (err, result) => {
+                        if (err) {
+                            console.error('Error fetching departments:', err);
+                            return;
+                        }
+                        console.table(result.rows);
+                        init(); // Prompt for the next action
+                    });
+                    break;
         case 'Add Employee':
             getNewEmployee().then(employee => {
                 pool.query('INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [employee.firstName, employee.lastName, employee.role_id, employee.manager_id], (err) => {
@@ -195,22 +238,23 @@ function handleUserChoice(choice) {
             console.log('Exiting the application. Goodbye!');
             
             break;
-        case 'Delete Employee':
-            promptForID('employee').then(employeeID => {
-                deleteEmployee(employeeID);
-            });
-            break;
-        case 'Delete Role':
-            promptForID('role').then(roleID => {
-                deleteRole(roleID);
-            });
-            break;
-        case 'Delete Department':
-            promptForID('department').then(departmentID => {
-                deleteDepartment(departmentID);
-            });
-            break;
-        case 'Quit':
+            case 'Delete Employee':
+                promptForID('employee').then(employeeID => {
+                    deleteEmployee(employeeID);
+                });
+                break;
+        //         case 'Delete Role':
+        //             promptForID('role').then(roleID => {
+        //                 deleteRole(roleID);
+        //             });
+        //             break;
+                
+        //         case 'Delete Department':
+        //             promptForID('department').then(departmentID => {
+        //                 deleteDepartment(departmentID);
+        //             });
+        //             break;
+        // case 'Quit':
             console.log('Exiting the application. Goodbye!');
             break;
         default:
