@@ -17,14 +17,6 @@
 --        ('Syxx', 'Singer', 1, 1),
 --        ('Jewel', 'Reyes', 2, 2),
 --        ('Tom', 'Fletcher', 5, NULL);
--- --  ^ this set up is for if manager id means they are manager
--- --  v this set up is for if its the opposite
---         -- ('Jess', 'Bowen', 3, 1), 
---         -- ('Robert', 'Dawson', 3, 2),
---         -- ('Syxx', 'Singer', 1, NULL), manager
---         -- ('Jewel', 'Reyes', 2, NULL), manager
---         -- ('Tom', 'Fletcher', 4, NULL);
-
 
 --new approach to seeded data below we're testing 
 -- department seeds

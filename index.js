@@ -195,12 +195,30 @@ function handleUserChoice(choice) {
             console.log('Exiting the application. Goodbye!');
             
             break;
-        // dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
+        case 'Delete Employee':
+            promptForID('employee').then(employeeID => {
+                deleteEmployee(employeeID);
+            });
+            break;
+        case 'Delete Role':
+            promptForID('role').then(roleID => {
+                deleteRole(roleID);
+            });
+            break;
+        case 'Delete Department':
+            promptForID('department').then(departmentID => {
+                deleteDepartment(departmentID);
+            });
+            break;
+        case 'Quit':
+            console.log('Exiting the application. Goodbye!');
+            break;
         default:
             console.log('Invalid choice. Please select a valid option.');
             init(); // Prompt for the next action
     }
 }
+        // dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
 
 function getNewEmployee() {
     return inquirer.prompt([
