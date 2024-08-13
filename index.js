@@ -149,7 +149,7 @@ const questions = [{
     type: 'list',
     message: 'What would you like to do?',
     name: 'choice',
-    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+    choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View all Roles', 'Add Role', 'View All Departments', 'Add Department', 'Delete Employee','Delete Role','Delete Department','Quit']
 }];
 
 const pool = new Pool({
