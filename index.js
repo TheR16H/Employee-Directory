@@ -138,8 +138,6 @@ function handleUserChoice(choice) {
             init();
     }
 }
-// dear rashawn remember to  cases for other actions like Update Employee Role, View all Roles, Add Role, View All Departments, Add Department
-
 function getNewEmployee() {
     return inquirer.prompt([
         {
