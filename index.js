@@ -52,9 +52,9 @@ function viewEmployeesByDepartment() {
             console.error('Error fetching departments:', err);
             return;
         }
-        
+
         const departments = result.rows.map(row => row.name);
-        
+
         inquirer.prompt([
             {
                 type: 'list',
